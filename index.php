@@ -1,6 +1,7 @@
 <?php
 
-include '../helpers.php';
+include './vendor/autoload.php';
+include './helpers.php';
 
 //$data = file_get_contents('php://input');
 
@@ -16,13 +17,16 @@ if ($data) {
 
     $equipos = [];
     foreach ($jsonData as $key => $value) {
+        d($value);
+        d($key);
         foreach ($value as $key2 => $value2) {
-            $equipos
+            $equipos;
+//            d($value2);
 //            $equipos[$value[$key2]->equipo];
             
         }
     }
-    
+    d($equipos);
 } else {
     http_response_code(400);
     print("Petición Vacía");
