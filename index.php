@@ -10,23 +10,27 @@ $data = <<<EOD
 EOD;
 
 if ($data) {
+//{
+//    "nombre": "Juan Perez",
+//    "nivel": "C",
+//    "goles": 10,
+//    "sueldo": 50000,
+//    "bono": 25000,
+//    "sueldo_completo": null,
+//    "equipo": "rojo"
+//}
 
+    $response = [];
+// crear array a partir del json
     $jsonData = json_decode($data);
 
-    $totalequipo = determinarAlcanceEquipo($jsonData);
+    $bonoTotal = calcularBonoTotal($jsonData);
+    //d($alcanceEquipo);
+    //iterar lista de jugadores
 
-    $equipos = [];
-    foreach ($jsonData as $key => $value) {
-        d($value);
-        d($key);
-        foreach ($value as $key2 => $value2) {
-            $equipos;
-//            d($value2);
-//            $equipos[$value[$key2]->equipo];
-            
-        }
-    }
-    d($equipos);
+    d($bonoTotal);
+    http_response_code(200);
+//    return json_encode($value);
 } else {
     http_response_code(400);
     print("Petición Vacía");
