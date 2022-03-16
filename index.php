@@ -1,18 +1,26 @@
 <?php
 
+/**
+ *
+ * Prueba de Backend para Resuelve Ingeniería 
+ * By Rafael Ramírez Ocaña
+ * 
+ * Se recibe una petición POST en formato JSON y se procesa, regresando
+ * el cálculo de sueldos conbase en los requerimientos establecidos
+ * enla prueba.
+ */
 include './vendor/autoload.php';
 include './helpers.php';
-ob_start();
-$data = file_get_contents('php://input');
 
-//$data = <<<EOD
-//{"jugadores":[{"nombre":"Juan Perez","nivel":"C","goles":10,"sueldo":50000,"bono":25000,"sueldo_completo":null,"equipo":"rojo"},{"nombre":"EL Cuauh","nivel":"Cuauh","goles":30,"sueldo":100000,"bono":30000,"sueldo_completo":null,"equipo":"azul"},{"nombre":"Cosme Fulanito","nivel":"A","goles":7,"sueldo":20000,"bono":10000,"sueldo_completo":null,"equipo":"azul"},{"nombre":"El Rulo","nivel":"B","goles":9,"sueldo":30000,"bono":15000,"sueldo_completo":null,"equipo":"rojo"}]}
-//EOD;
+ob_start();
+
+$data = file_get_contents('php://input');
 
 if ($data) {
 
     $response = [];
-// crear array a partir del json
+
+    // crear array a partir del json
     $jsonData = json_decode($data);
 
     $bonoTotal = calcularBonoTotal($jsonData);
@@ -31,13 +39,12 @@ if ($data) {
         $response['jugadores'][] = $value;
     }
 
-//    d(json_encode($response));
+    //respondemos la peticion exitosamente
     http_response_code(200);
     header('Content-Type: application/json; charset=utf-8');
-
     echo json_encode($response);
 } else {
-
+    //respondemos la peticon con un error
     http_response_code(400);
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(["error" => "Petición vacía", "errorCode" => 400]);
