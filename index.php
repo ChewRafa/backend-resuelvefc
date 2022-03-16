@@ -9,7 +9,6 @@
  * el cálculo de sueldos conbase en los requerimientos establecidos
  * enla prueba.
  */
-include './vendor/autoload.php';
 include './helpers.php';
 
 ob_start();
