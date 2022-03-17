@@ -26,15 +26,7 @@ if ($data) {
 
     //iterar lista de jugadores
     foreach ($jsonData->jugadores as $value) {
-        $sueldoTotal = [];
-
-        //iteramos el array de bonos
-        foreach ($bonoTotal as $bonoValue) {
-            foreach ($bonoValue as $bono) {
-                $value->sueldo_completo = $value->sueldo + $bono;
-                //$sueldoTotal[$value->equipo][] = $value->sueldo + $bono;
-            }
-        }
+        $value->sueldo_completo = calcularSueldoTotal($value->sueldo, $bonoTotal[$value->nombre]);
         $response['jugadores'][] = $value;
     }
 

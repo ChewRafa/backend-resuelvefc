@@ -26,7 +26,7 @@ function determinarGolesEsperadosEquipo($listaJugadores) {
  * Determinar el numero de goles anotados para cada equipo
  *
  * @param type array Lista de jugadores.
- * @return type array con cantidad de goles esperados por equipo.
+ * @return type array con cantidad de goles anotados por equipo.
  */
 function determinarGolesAnotadosEquipo($listaJugadores) {
     $equipos = [];
@@ -52,7 +52,6 @@ function determinarGolesAnotadosEquipo($listaJugadores) {
  * @return float alcance individual expresado en decimales. Ej. 0.95 = 95%
  */
 function determinarAlcanceJugador($golesMes, $minimoGoles) {
-
     if (isset($golesMes) && isset($minimoGoles)) {
         return $golesMes / $minimoGoles;
     } else {
@@ -153,6 +152,7 @@ function determinarEquipos($jugadores) {
     }
     return array_unique($equipos);
 }
+
 /**
  * 
  * Se obtiene el alcance por equipos recibiendo la lista de jugadores,
@@ -178,30 +178,42 @@ function calcularAlcanceEquipo($jugadores) {
 
     return $alcanceEquipo;
 }
+
 /**
  * 
  * Calculo de resultados del bono variable para todos los jugadores
  * de un equipo.
  * 
  * @param array Lista de jugadores
- * @return array listado de bonos por equipos
+ * @return array listado de bonos 
  */
 function calcularBonoTotal($listaJugadores) {
     $bonoTotal = [];
     //obtener el % de alcance por equipo
     $alcanceEquipo = calcularAlcanceEquipo($listaJugadores);
     foreach ($listaJugadores->jugadores as $value) {
+        $porcentajeEquipo = 0;
+        $porcentajeIndividual = 0;
 
-        //obtener minimo de goles esperados por nivel
+        //obtener minimo de goles esperados por nivel individuak
         $golesEsperados = obtenerGolesNivel($value->nivel);
 
         //obtener alcance individual 
-        $alcanceIndividual = determinarAlcanceJugador($golesEsperados, $value->goles);
+        $alcanceIndividual = determinarAlcanceJugador($value->goles, $golesEsperados);
 
-        foreach ($alcanceEquipo as $equipoValue) {
-            $bonoTotal[$value->equipo][] = calcularBonoJugador($value->bono, $equipoValue + $alcanceIndividual);
-            break;
+        if ($alcanceEquipo[$value->equipo] > 1.0) {
+            $porcentajeEquipo = 1;
+        } else {
+            $porcentajeEquipo = $alcanceEquipo[$value->equipo];
         }
+        if ($alcanceIndividual > 1.0) {
+            $porcentajeIndividual = 1;
+        } else {
+            $porcentajeIndividual = $alcanceIndividual;
+        }
+
+        $alcanceTotal = ($porcentajeIndividual + $porcentajeEquipo) / 2;
+        $bonoTotal[$value->nombre] = calcularBonoJugador($value->bono, $alcanceTotal);
     }
     return $bonoTotal;
 }
