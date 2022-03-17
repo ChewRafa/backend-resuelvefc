@@ -9,6 +9,16 @@ Para un correcto funcionamiento, es necesario usar un cliente http como [Postman
 
 Puedes copiar la carpeta a un servidor web como apache o nginx, y posteriormente visitar la ruta [http://localhost/resuelvefc-chewrafa/](http://localhost/resuelvefc-chewrafa/)
 
+## Estructura del proyecto
+    [root]
+    |──assets  # carpeta con las imágenes de abajo
+    |── docker-compose.yml #configuracion para docker-compose
+    |── Dockerfile   #configuracion de docker
+    |── helpers.php #libreria con funciones útiles  
+    |── index.php  #la magia pasa AQUI ;) 
+    |── README.md  #El archivo que estas leyendo
+
+
 ## Requerimientos
 1. PHP >= 7
 2. Un servidor web (apache, nginx)
@@ -46,10 +56,17 @@ o también
 
 1. Añadimos la URL del proyecto.
 
-2. Seleccionamos la pestaña body y damos clic en raw. Seleccionamos JSON.Introducimos los datos en el area de texto.
+![1](https://github.com/ChewRafa/backend-resuelvefc/blob/main/assets/01.png?raw=true )
 
-3. Presionamos Send y podemos ver el resultado de la ejecución de nuestra petición.
+2. Seleccionamos la pestaña body y damos clic en `raw`. Seleccionamos JSON.
 
+3. Introducimos los datos en el area de texto.
+
+![2](https://github.com/ChewRafa/backend-resuelvefc/blob/main/assets/02.png?raw=true )
+
+4. Presionamos `Send` y podemos ver el resultado de la ejecución de nuestra petición.
+
+![3](https://github.com/ChewRafa/backend-resuelvefc/blob/main/assets/03.png?raw=true)
 
 
 ### Usando CURL
