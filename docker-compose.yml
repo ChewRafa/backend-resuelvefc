@@ -1,0 +1,13 @@
+version: '3'
+services:
+  resuelvefc-web:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: resuelvefc-web
+    container_name: resuelvefc-web
+    volumes:
+      - .:/var/www/html/
+    ports:
+      - 8000:80
